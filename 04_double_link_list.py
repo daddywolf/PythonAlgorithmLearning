@@ -2,12 +2,10 @@ class Node(object):
     def __init__(self, elem):
         self.elem = elem
         self.next = None
+        self.prev = None
 
 
-# node=Node(100)
-
-class SingleLinkList(object):
-
+class DoubleLinkList(object):
     def __init__(self, node=None):
         self.__head = node
 
@@ -30,13 +28,13 @@ class SingleLinkList(object):
         print("")
 
     def add(self, item):
-        '''链表头部添加元素，头插法'''
         node = Node(item)
         node.next = self.__head
         self.__head = node
+        if self.__head is None:
+            node.next.prev = node
 
     def append(self, item):
-        '''链表尾部添加元素，尾插法'''
         cur = self.__head
         node = Node(item)
         if self.is_empty():
@@ -45,37 +43,37 @@ class SingleLinkList(object):
             while cur.next is not None:
                 cur = cur.next
             cur.next = node
+            node.prev = cur
 
     def insert(self, pos, item):
-        '''
-        :param pos: 从0开始
-        :param item:
-        :return:
-        '''
         if pos <= 0:
             self.add(item)
         elif pos > (self.length() - 1):
             self.append(item)
         else:
-            node = Node(item)
             cur = self.__head
-            for i in range(pos - 1):
+            for i in range(pos):
                 cur = cur.next
-            node.next = cur.next
-            cur.next = node
+            node = Node(item)
+            node.next = cur
+            node.prev = cur.prev
+            cur.prev.next = node
+            cur.prev = node
 
     def remove(self, item):
         cur = self.__head
-        pre = None
         while cur is not None:
             if cur.elem == item:
                 if cur == self.__head:
                     self.__head = cur.next
+                    if cur.next is not None:
+                        cur.next.prev = None
                 else:
-                    pre.next = cur.next
+                    cur.prev.next = cur.next
+                    if cur.next is not None:
+                        cur.next.prev = cur.pref
                 break
             else:
-                pre = cur
                 cur = cur.next
 
     def search(self, item):
@@ -89,20 +87,20 @@ class SingleLinkList(object):
 
 
 if __name__ == "__main__":
-    ll = SingleLinkList()
-    print(ll.is_empty())
-    print(ll.length())
-    ll.append(1)
-    print(ll.is_empty())
-    print(ll.length())
-    ll.append(2)
-    ll.append(3)
-    ll.append(4)
-    ll.append(5)
-    ll.append(6)
-    ll.travel()
-    ll.insert(3, 9)
-    ll.travel()
-    print(ll.search(5))
-    ll.remove(1)
-    ll.travel()
+    dll = DoubleLinkList()
+    print(dll.is_empty())
+    print(dll.length())
+    dll.append(1)
+    print(dll.is_empty())
+    print(dll.length())
+    dll.append(2)
+    dll.append(3)
+    dll.append(4)
+    dll.append(5)
+    dll.append(6)
+    dll.travel()
+    dll.insert(3, 9)
+    dll.travel()
+    print(dll.search(5))
+    dll.remove(1)
+    dll.travel()
