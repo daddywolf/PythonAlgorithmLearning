@@ -78,29 +78,35 @@ class SingleLinkList(object):
             node.next = cur.next
             cur.next = node
 
-#该看P29了
+    # 该看P29了
 
     def remove(self, item):
-        cur = self.__head
-        pre = None
-        while cur is not None:
-            if cur.elem == item:
-                if cur == self.__head:
-                    self.__head = cur.next
-                else:
-                    pre.next = cur.next
-                break
-            else:
-                pre = cur
-                cur = cur.next
+        pass
+        # cur = self.__head
+        # pre = None
+        # while cur is not self.__head:
+        #     if cur.elem == item:
+        #         if cur == self.__head:
+        #             pass
+        #             # self.__head = cur.next
+        #         else:
+        #             pre.next = cur.next
+        #         break
+        #     else:
+        #         pre = cur
+        #         cur = cur.next
 
     def search(self, item):
+        if self.is_empty():
+            return False
         cur = self.__head
-        while cur is not None:
+        while cur.next is not self.__head:
             if cur.elem == item:
                 return True
             else:
                 cur = cur.next
+        if cur.elem is item:
+            return True
         return False
 
 
