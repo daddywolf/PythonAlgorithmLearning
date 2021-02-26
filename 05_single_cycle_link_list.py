@@ -79,22 +79,34 @@ class SingleLinkList(object):
             cur.next = node
 
     # 该看P29了
-
+    # 有点难
     def remove(self, item):
-        pass
-        # cur = self.__head
-        # pre = None
-        # while cur is not self.__head:
-        #     if cur.elem == item:
-        #         if cur == self.__head:
-        #             pass
-        #             # self.__head = cur.next
-        #         else:
-        #             pre.next = cur.next
-        #         break
-        #     else:
-        #         pre = cur
-        #         cur = cur.next
+        if self.is_empty():
+            return
+        cur = self.__head
+        pre = None
+        while cur.next is not self.__head:
+            if cur.elem == item:
+                if cur == self.__head:
+                    # 头结点的情况
+                    # 找尾结点
+                    rear = self.__head
+                    while rear.next is not self.__head:
+                        rear = rear.next
+                    self.__head = cur.next
+                    rear.next = self.__head
+                else:
+                    pre.next = cur.next
+                return
+            else:
+                pre = cur
+                cur = cur.next
+        # 退出循环，cur指向尾节点
+        if cur.elem is item:
+            if self.length() == 1:
+                self.__head = None
+            else:
+                pre.next = cur.next
 
     def search(self, item):
         if self.is_empty():
