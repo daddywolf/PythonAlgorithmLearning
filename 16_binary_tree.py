@@ -37,18 +37,54 @@ class Tree(object):
         quque = [self.root]
         while quque:
             cur_node = quque.pop(0)
-            print(cur_node.elem)
+            print(cur_node.elem, end=" ")
             if cur_node.lchild is not None:
                 quque.append(cur_node.lchild)
             if cur_node.rchild is not None:
                 quque.append(cur_node.rchild)
 
+    def preorder(self, node):
+        '''先序遍历'''
+        if node is None:
+            return
+        print(node.elem, end=" ")
+        self.preorder(node.lchild)
+        self.preorder(node.rchild)
+
+    def inorder(self, node):
+        '''中序遍历'''
+        if node is None:
+            return
+        self.inorder(node.lchild)
+        print(node.elem, end=" ")
+        self.inorder(node.rchild)
+
+    def postorder(self, node):
+        '''中序遍历'''
+        if node is None:
+            return
+        self.postorder(node.lchild)
+        self.postorder(node.rchild)
+        print(node.elem, end=" ")
+
 
 if __name__ == "__main__":
     tree = Tree()
+    tree.add(0)
     tree.add(1)
     tree.add(2)
     tree.add(3)
     tree.add(4)
     tree.add(5)
+    tree.add(6)
+    tree.add(7)
+    tree.add(8)
+    tree.add(9)
     tree.breadth_travel()
+    print("  ")
+    tree.preorder(tree.root)
+    print("  ")
+    tree.inorder(tree.root)
+    print("  ")
+    tree.postorder(tree.root)
+    print("  ")
